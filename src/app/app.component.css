@@ -1,0 +1,52 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+  margin: 50px auto 0 auto;
+  padding: 15px 20px 0 10px;
+  border-radius: 30px;
+  align-items: center;
+
+}
+
+.grafica{
+    margin: 50px auto 0 auto;
+}
+
+
+table {
+  width: 100%;
+  margin-top: 10px;
+  /* background-color: blue; */
+}
+
+th {
+  width: 20%;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: auto;
+  background-color: red;
+}
+
+img {
+  text-align: center;
+  background-color: aquamarine;
+  width: 100%;
+  margin-top: 100px;
+  margin-right: 100px;
+}
+
+.container2 {
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-top: 20px;
+  text-align: center;
+}

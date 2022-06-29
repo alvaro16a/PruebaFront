@@ -1,0 +1,51 @@
+<div class="container2">
+  <h1>Listado de Estudiantes</h1>
+  <div class="mat-elevation-z8">
+    <table class="countries">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="row" *ngFor="let name of coursesName;let index=index">{{name}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of studentsName;let index2=index">
+          <th scope="row" >{{student}}</th>
+          <td scope2="row" *ngFor="let name of coursesName;let index3=index">{{studentScore[index2][index3]}}</td>
+        </tr>
+        
+      </tbody>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      aria-label="Select page of users"
+    ></mat-paginator>
+  </div>
+</div>
+
+
+<div class="container">
+  <ngx-charts-line-chart
+  class="grafica"
+  [view]="[2200, 800]"
+  [legend]="legend"
+  [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxis]="xAxis"
+  [yAxis]="yAxis"
+  [xAxisLabel]="xAxisLabel"
+  [yAxisLabel]="yAxisLabel"
+  [timeline]="timeline"
+  [results]="notasConvertida"
+  [curve]="curve"
+  (select)="onSelect($event)"
+  (activate)="onActivate($event)"
+  (deactivate)="onDeactivate($event)">
+</ngx-charts-line-chart>
+</div>
+
+<!-- Filtro -->
+<!-- <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filtro" #input autocomplete="off">
+  </mat-form-field> -->
