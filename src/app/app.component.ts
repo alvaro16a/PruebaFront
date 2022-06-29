@@ -5,7 +5,10 @@ import { ModuleModel } from './models/module.model';
 import { NotaModel } from './models/nota.model';
 import { DataModel } from './models/data.model';
 import * as shape from 'd3-shape';
-import { Component, NgModule, ViewChild } from '@angular/core';
+import { Component, EventEmitter, NgModule, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 
 @Component({
@@ -37,28 +40,27 @@ export class AppComponent {
   roundDomains: boolean = true;
   curve: any = shape.curveBumpX;
   idprogram: string = "ciclo-col-c2";
-
+  legendTitle: string="";
 
   constructor(private getStudentService: GetStudentService) {
-
     this.actualizarGrafica(this.idprogram);
   }
 
-  ngOnInit(): void {
-
-    //console.log(this.notasConvertida)
-  }
+  ngOnInit(): void {}
 
   onSelect(data: any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+    console.log("función onSelect");
   }
 
   onActivate(data: any): void {
     console.log('Activate', JSON.parse(JSON.stringify(data)));
+    console.log("función onActivate");
   }
 
   onDeactivate(data: any): void {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    console.log("función onDeactivate");
   }
 
 
@@ -84,4 +86,28 @@ export class AppComponent {
         this.studentScore = this.notas.map(nota => nota.courses.map((course: { score: number; }) => course.score));
       })
   }
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  dataSource = new MatTableDataSource(this.notas);
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  mostrarEstudiante(student: any){
+    console.log(student)
+    this.legendTitle = student;
+    this.onActivate(student);
+    this.onDeactivate(student)
+    this.onSelect(student);
+  }
+
 }
