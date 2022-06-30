@@ -24,6 +24,7 @@ export class AppComponent {
   notas: Array<any> = []
   courses: Array<CourseModel> = []
   studentScore: any
+  filtrando: boolean=false
 
   coursesValues: Array<Array<any>> = []
   //options
@@ -103,11 +104,18 @@ export class AppComponent {
   }
 
   mostrarEstudiante(student: any){
-    console.log(student)
-    this.legendTitle = student;
-    this.onActivate(student);
-    this.onDeactivate(student)
-    this.onSelect(student);
+    console.log(student);
+    if(this.filtrando == false){
+
+      this.notasConvertida=this.notasConvertida.filter(nota => nota.name == student)
+      this.filtrando=true;
+    }else{
+      this.notasConvertida = this.notas.map(nota => this.notaToData(nota));
+      this.filtrando=false;
+    }
+    
+
+    
   }
 
 }
