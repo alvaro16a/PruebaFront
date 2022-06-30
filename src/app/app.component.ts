@@ -104,18 +104,25 @@ export class AppComponent {
   }
 
   mostrarEstudiante(student: any){
-    console.log(student);
     if(this.filtrando == false){
-
       this.notasConvertida=this.notasConvertida.filter(nota => nota.name == student)
       this.filtrando=true;
     }else{
       this.notasConvertida = this.notas.map(nota => this.notaToData(nota));
       this.filtrando=false;
     }
-    
-
-    
   }
 
+  btnActivado: boolean = false;
+  activarIcono() {
+    let botonVerEstudiantes = document.getElementById('botonVer');
+    if(botonVerEstudiantes?.click ){
+      if(this.btnActivado == false) {
+        botonVerEstudiantes.style.color = "green";
+      }else {
+        botonVerEstudiantes.style.color = "blue";
+      }
+      this.btnActivado = true;
+    }
+  }
 }
