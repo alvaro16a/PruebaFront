@@ -21,10 +21,9 @@
             <a
               class="pointer"
               id="botonVer"
-              (click)="activarIcono()"
-              (click)="mostrarEstudiante(student)"
-            >
-              <mat-icon>visibility</mat-icon>
+              (click)="mostrarEstudiante(student,index2)">
+              <mat-icon *ngIf="!bottonActive[index2]" style="color: rgb(120, 113, 113);" >visibility</mat-icon>
+              <mat-icon *ngIf="bottonActive[index2]" style="color: rgb(145, 44, 137);">visibility</mat-icon>
             </a>
           </td>
         </tr>
@@ -51,7 +50,7 @@
     [xAxisLabel]="xAxisLabel"
     [yAxisLabel]="yAxisLabel"
     [timeline]="timeline"
-    [results]="notasConvertida"
+    [results]="notasMostrar"
     [curve]="curve"
     (select)="onSelect($event)"
     (activate)="onActivate($event)"

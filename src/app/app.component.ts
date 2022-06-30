@@ -9,6 +9,7 @@ import { Component, EventEmitter, NgModule, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { json } from 'd3';
 
 
 @Component({
@@ -18,7 +19,9 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class AppComponent {
   notasConvertida: Array<DataModel> = [];
+  notasMostrar: Array<DataModel> = [];
   studentsName: Array<string> = []
+  bottonActive: Array<boolean> = []
   coursesName: string[] = []
   view: number[] = [1500, 800];
   notas: Array<any> = []
@@ -82,6 +85,7 @@ export class AppComponent {
         this.notas = respuesta;
         this.notasConvertida = this.notas.map(nota => this.notaToData(nota));
         this.studentsName = this.notasConvertida.map(notaConvertida => notaConvertida.name)
+        this.bottonActive = this.studentsName.map(student => false);
         this.courses = this.notas.map(nota => nota.courses);
         this.coursesName = this.notas[0].courses.map((course: { nameCourse: string; }) => course.nameCourse);
         this.studentScore = this.notas.map(nota => nota.courses.map((course: { score: number; }) => course.score));
@@ -103,27 +107,22 @@ export class AppComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  mostrarEstudiante(student: any){
-    if(this.filtrando == false){
-      this.notasConvertida=this.notasConvertida.filter(nota => nota.name == student)
-      this.filtrando=true;
-    }else{
-      this.notasConvertida = this.notas.map(nota => this.notaToData(nota));
-      this.filtrando=false;
-    }
-  }
+  mostrarEstudiante(student: any, indice:number){
 
-  btnActivado: boolean = false;
-  activarIcono() {
-    let botonVerEstudiantes = document.getElementById('botonVer');
-    if(botonVerEstudiantes?.click ){
-      if(this.btnActivado == false) {
-        botonVerEstudiantes.style.color = "green";
-        this.btnActivado = true;
-      } else if(this.btnActivado == true){
-        botonVerEstudiantes.style.color = "blue";
-        this.btnActivado = false;
-      }
+    if(this.bottonActive[indice] == false){
+      this.notasMostrar=this.notasConvertida
+    }else{
+      this.notasMostrar.filter(nota => nota.name == student)
     }
+    this.bottonActive[indice]=!this.bottonActive[indice]
+    console.log(this.notasMostrar)
+  }
+  
+  activarIcono(indice: number) {
+
+     
+  
+    //botonVerEstudiantes.style.color = "green";
+  
   }
 }
