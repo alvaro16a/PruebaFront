@@ -19,7 +19,7 @@ import { json } from 'd3';
 })
 export class AppComponent {
   notasConvertida: Array<DataModel> = [];
-  notasMostrar: Array<DataModel> = [];
+  notasMostrar: Array<any> = [];
   studentsName: Array<string> = []
   bottonActive: Array<boolean> = []
   coursesName: string[] = []
@@ -27,7 +27,7 @@ export class AppComponent {
   notas: Array<any> = []
   courses: Array<CourseModel> = []
   studentScore: any
-  filtrando: boolean=false
+  filtrando: boolean = false
 
   coursesValues: Array<Array<any>> = []
   //options
@@ -44,13 +44,13 @@ export class AppComponent {
   roundDomains: boolean = true;
   curve: any = shape.curveBumpX;
   idprogram: string = "ciclo-col-c2";
-  legendTitle: string="";
+  legendTitle: string = "";
 
   constructor(private getStudentService: GetStudentService) {
     this.actualizarGrafica(this.idprogram);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   onSelect(data: any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
@@ -69,7 +69,7 @@ export class AppComponent {
 
 
   moduleToserie(module: ModuleModel) {
-    const serie: SerieModel = { name:`${module.nameModule} - ${module.nameCourse}` , value: module.score };
+    const serie: SerieModel = { name: `${module.nameModule} - ${module.nameCourse}`, value: module.score };
     return serie;
   }
 
@@ -107,22 +107,19 @@ export class AppComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  mostrarEstudiante(student: any, indice:number){
+  mostrarEstudiante(student: string, indice: number) {
 
-    if(this.bottonActive[indice] == false){
-      this.notasMostrar=this.notasConvertida
+    this.notasConvertida = this.notas.map(nota => this.notaToData(nota));
+    if (this.bottonActive[indice] == false) {
+      this.notasConvertida = this.notasConvertida.filter(nota => nota.name == this.studentsName[indice])
+      this.notasMostrar =this.notasMostrar.concat(this.notasConvertida)
     }else{
-      this.notasMostrar.filter(nota => nota.name == student)
-    }
-    this.bottonActive[indice]=!this.bottonActive[indice]
-    console.log(this.notasMostrar)
-  }
-  
-  activarIcono(indice: number) {
 
-     
-  
-    //botonVerEstudiantes.style.color = "green";
-  
+    }
+
+    this.bottonActive[indice]=!this.bottonActive[indice];
+
+
   }
+
 }

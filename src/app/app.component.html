@@ -18,10 +18,7 @@
             {{ studentScore[index2][index3] }}
           </td>
           <td>
-            <a
-              class="pointer"
-              id="botonVer"
-              (click)="mostrarEstudiante(student,index2)">
+            <a class="pointer" (click)="mostrarEstudiante(student,index2)">
               <mat-icon *ngIf="!bottonActive[index2]" style="color: rgb(120, 113, 113);" >visibility</mat-icon>
               <mat-icon *ngIf="bottonActive[index2]" style="color: rgb(145, 44, 137);">visibility</mat-icon>
             </a>
