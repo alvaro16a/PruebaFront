@@ -119,10 +119,11 @@ export class AppComponent {
     if(botonVerEstudiantes?.click ){
       if(this.btnActivado == false) {
         botonVerEstudiantes.style.color = "green";
-      }else {
+        this.btnActivado = true;
+      } else if(this.btnActivado == true){
         botonVerEstudiantes.style.color = "blue";
+        this.btnActivado = false;
       }
-      this.btnActivado = true;
     }
   }
 }
