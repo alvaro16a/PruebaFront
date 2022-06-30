@@ -23,11 +23,8 @@ export class AppComponent {
   studentsName: Array<string> = []
   bottonActive: Array<boolean> = []
   coursesName: string[] = []
-  view: number[] = [1500, 800];
   notas: Array<any> = []
-  courses: Array<CourseModel> = []
   studentScore: any
-  filtrando: boolean = false
 
   coursesValues: Array<Array<any>> = []
   //options
@@ -86,7 +83,6 @@ export class AppComponent {
         this.notasConvertida = this.notas.map(nota => this.notaToData(nota));
         this.studentsName = this.notasConvertida.map(notaConvertida => notaConvertida.name)
         this.bottonActive = this.studentsName.map(student => false);
-        this.courses = this.notas.map(nota => nota.courses);
         this.coursesName = this.notas[0].courses.map((course: { nameCourse: string; }) => course.nameCourse);
         this.studentScore = this.notas.map(nota => nota.courses.map((course: { score: number; }) => course.score));
       })
@@ -108,17 +104,18 @@ export class AppComponent {
   }
 
   mostrarEstudiante(student: string, indice: number) {
-
+    this.bottonActive[indice]=!this.bottonActive[indice];
     this.notasConvertida = this.notas.map(nota => this.notaToData(nota));
-    if (this.bottonActive[indice] == false) {
+    if (this.bottonActive[indice] == true) {
       this.notasConvertida = this.notasConvertida.filter(nota => nota.name == this.studentsName[indice])
       this.notasMostrar =this.notasMostrar.concat(this.notasConvertida)
     }else{
 
+      this.notasMostrar =this.notasMostrar.filter(nota => nota.name !== this.studentsName[indice]) 
+    
     }
 
-    this.bottonActive[indice]=!this.bottonActive[indice];
-
+    
 
   }
 
